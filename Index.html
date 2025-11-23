@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neher Gitarren / Lutherie Neher / Luthiery Neher</title>
+  <style>
+    :root {
+      --accent-color: #333;
+      --bg-color: #f9f9f9;
+      --text-color: #222;
+      --font: 'Arial', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--accent-color);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 3rem 2rem 4rem 2rem;
+      background: url('IMG_9227.JPG') center/cover no-repeat;
+      color: white;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0,0,0,0.3);
+      z-index: 1;
+    }
+
+    .hero h1, .hero p {
+      position: relative;
+      z-index: 2;
+      margin: 0.5rem 0;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+    }
+
+    .hero-summary {
+      position: relative;
+      z-index: 2;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      font-style: italic;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    section {
+      padding: 2rem 2rem 4rem 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h2, h3 {
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    p, li {
+      line-height: 1.6;
+    }
+
+
+
+    #contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    #contact-form input,
+    #contact-form textarea {
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    #contact-form button {
+      padding: 0.8rem;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    #contact-form button:hover {
+      background-color: #50493f;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      background-color: #eee;
+    }
+
+    .lang-selector {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .lang-selector button {
+      background: none;
+      border: 1px solid white;
+      color: white;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .lang-selector button:hover {
+      background-color: white;
+      color: var(--accent-color);
+    }
+
+    /* Modell-Galerie */
+    .model-gallery + p,
+ul + p {
+  margin-top: 1.5rem; /* verkleinert den Abstand nach der Liste */
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .model-gallery img {
+      width: 30%;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      object-fit: cover;
+    }
+
+    /* Bio-Bild */
+
+#about img {
+  max-width: 300px;
+  height: auto;
+  display: block;
+  /*margin: 1rem auto; /* zentriert das Bild */
+}
+    }
+    ul {
+      margin-bottom: 0.5rem;
+    }
+
+    ul + p {
+      margin-top: 0;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1.1rem;
+      }
+      .hero-summary {
+        font-size: 1rem;
+      }
+      .model-gallery img {
+        width: 80%;
+      }
+    }
+
+    /* --- LIGHTBOX CSS --- */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px; right: 30px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Neher Gitarren</div>
+  <nav>
+    <a href="#model" data-lang="de">Modell</a>
+    <a href="#model" data-lang="fr" style="display:none">Modèle</a>
+    <a href="#model" data-lang="en" style="display:none">Model</a>
+
+     <a href="#Material" data-lang="de">Mögliche Materialien</a>
+    <a href="#Material" data-lang="fr" style="display:none">Materiaux possibles</a>
+    <a href="#Material" data-lang="en" style="display:none">Material choices</a>
+
+
+    <a href="#about" data-lang="de">Über</a>
+    <a href="#about" data-lang="fr" style="display:none">À propos</a>
+    <a href="#about" data-lang="en" style="display:none">About</a>
+
+    <a href="#contact" data-lang="de">Kontakt</a>
+    <a href="#contact" data-lang="fr" style="display:none">Contact</a>
+    <a href="#contact" data-lang="en" style="display:none">Contact</a>
+  </nav>
+  <div class="lang-selector">
+    <button onclick="setLang('de')">DE</button>
+    <button onclick="setLang('fr')">FR</button>
+    <button onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1 data-lang="de">Neher Gitarren</h1>
+  <h1 data-lang="fr">Neher Guitares</h1>
+  <h1 data-lang="en">Neher Guitars</h1>
+
+  <p data-lang="de">Gitarrenbau mit Respekt für Holz, Klang und Umwelt</p>
+  <p data-lang="fr">Lutherie respectueuse du bois, du son et de l'environnement</p>
+  <p data-lang="en">Guitarmaking with respect for wood, sound and the environment</p>
+</section>
+
+<section id="model">
+  <h2 data-lang="de">Modell RK</h2>
+  <h2 data-lang="fr" style="display:none">Modèle RK</h2>
+  <h2 data-lang="en" style="display:none">Model RK</h2>
+
+  <p data-lang="de">Die Gitarren #19 und #20 in der Entstehung</p>
+  <p data-lang="fr" style="display:none">Les guitares #19 et #20 en cours de fabrication</p>
+  <p data-lang="en" style="display:none">Guitars #19 and #20 in progress</p>
+
+  <div class="model-gallery">
+  <img src="IMG_9255.JPG" alt="Modell 1">
+  <img src="IMG_9244.JPG" alt="Modell 2">
+  <img src="IMG_9231.JPG" alt="Modell 3">
+</div>
+
+<!-- LIGHTBOX HTML -->
+<div id="lightbox" class="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="">
+</div>
+
+
+  <p data-lang="de">Gezeigt wird hier das Modell RK, das durch seine klassische Formsprache überzeugt. Klanglich wird Intimität gesucht, die sich durch volle Bässe und einen strahlenden Diskant beschreiben lässt. Die Designaspekte des Instruments haben direkte spanische Vorbilder, vornehmlich Torres und Hernandez y Aguado, wobei die verwendeten Techniken als Mischung zwischen dem traditionell spanischen Gitarrenbau und einer modernen Herangehensweise bezeichnet werden können. Auch die Materialien sind aufgrund Verknappung der früher verwendeten Hölzer nicht dieselben: Verwendet werden ausschließlich europäische Hölzer, die möglichst kurze Transportwege hinter sich haben und die zum Großteil vom Unternehmen selbst vom Baum zum Tonholz begleitet werden. Als Deckenmaterial dient somit fast ausschließlich Fichte, während das Korpusmaterial variieren kann.</p>
+
+  <p data-lang="fr" style="display:none">Le modèle RK est présenté ici pour son langage formel classique. Sur le plan sonore, une intimité est recherchée, caractérisée par des basses pleines et des aigus brillants. Les aspects de conception de l’instrument ont des modèles espagnols directs, principalement Torres et Hernandez y Aguado, tandis que les techniques utilisées peuvent être considérées comme un mélange de lutherie espagnole traditionnelle et d’approches modernes. Les matériaux ne sont pas les mêmes en raison de la raréfaction des bois autrefois utilisés et pour éviter les dilemmes moraux : seuls des bois européens aux trajets de transport courts sont utilisés, la plupart étant suivis de l’arbre au bois sonore par l’entreprise elle-même. L’épicéa est utilisé presque exclusivement pour la table, tandis que le matériau de la caisse peut varier.</p>
+
+  <p data-lang="en" style="display:none">Here is the RK model, notable for its classical design language. Sonically, intimacy is sought, with full bass and bright trebles. The design aspects of the instrument have direct Spanish models, mainly Torres and Hernandez y Aguado, with techniques that can be seen as a mix between traditional Spanish guitar making and a modern approach. Materials are not the same due to scarcity of previously used woods and ethical considerations: only European woods with short transport distances are used, most accompanied from tree to tonewood by the company itself. Spruce is used almost exclusively for the top, while the body material may vary.</p>
+
+  </section>
+
+  <section>
+  <h2 data-lang="de">Mögliche Materialien</h2>
+  <h2 data-lang="fr" style="display:none">Matériaux possibles</h2>
+  <h2 data-lang="en" style="display:none">Possible Materials</h2>
+
+  <ul>
+    <li data-lang="de">Fichte (Decke)</li>
+    <li data-lang="de">Ahorn (Hals/Boden/Zargen)</li>
+    <li data-lang="de">Kirsche (Hals/Boden/Zargen)</li>
+    <li data-lang="de">Esche (Boden/Zargen)</li>
+    <li data-lang="de">Apfel/Birne (Boden/Zargen)</li>
+    <li data-lang="de">Räuchereiche (Boden/Zargen/Zierelementes)</li>
+
+    <li data-lang="fr" style="display:none">Épicéa (table)</li>
+    <li data-lang="fr" style="display:none">Érable (manche/fond/éclisses)</li>
+    <li data-lang="fr" style="display:none">Cerise (manche/fond/éclisses)</li>
+    <li data-lang="fr" style="display:none">Frêne (fond/éclisses)</li>
+    <li data-lang="fr" style="display:none">Pomme/Poire (fond/éclisses)</li>
+    <li data-lang="fr" style="display:none">Chêne fumé (fond/éclisses/ornements)</li>
+
+    <li data-lang="en" style="display:none">Spruce (top)</li>
+    <li data-lang="en" style="display:none">Maple (neck/back/sides)</li>
+    <li data-lang="en" style="display:none">Cherry (neck/back/sides)</li>
+    <li data-lang="en" style="display:none">Ash (back/sides)</li>
+    <li data-lang="en" style="display:none">Apple/Pear (back/sides)</li>
+    <li data-lang="en" style="display:none">Smoked Oak (back/sides/trim)</li>
+  </ul>
+</section>
+
+<section id="about">
+  <h2 data-lang="de">Über</h2>
+  <h2 data-lang="fr" style="display:none">À propos</h2>
+  <h2 data-lang="en" style="display:none">About</h2>
+
+  <img src="Arbeit.jpg" alt="">
+
+  <p data-lang="de">
+    2015 begann Adrian Neher seine Lehrzeit an der staatlichen Berufsfachschule für Musikinstrumentenbau in Mittenwald. Nach deren erfolgreichem Abschluss folgte ein Bachelorstudium an der WHZ, das mit dem Meister-Titel sowie dem besten Instrument seines Jahrgangs beendet wurde. Hiernach komplettierte er erfolgreich seine akademische Ausbildung mit dem Master-Studium der Akustik und Technologie des Musikinstrumentenbaus, ebenfalls an der WHZ, wonach eine Selbständigkeit anschloss. Während der Ausbildung praktizierte er unter anderem bei Michael Batell, Adrian Heinzelmann, Simon Burgun und Christopher Schuetz, weitere starke Einflüsse kamen von Gabriel Seitner, Manuel Arango, Lisa Duchêne, Jakob Biehler, Christina Müller und Johanna Vogl.
+  </p>
+  <p data-lang="fr" style="display:none">
+    En 2015, Adrian Neher a commencé son apprentissage à l’école professionnelle d’État pour la fabrication d’instruments de musique à Mittenwald. Après avoir obtenu son diplôme avec succès, il a poursuivi un bachelor à la WHZ, couronné par le titre de maître et le meilleur instrument de sa promotion. Par la suite, il a complété avec succès sa formation académique par un master en acoustique et technologie de la lutherie, également à la WHZ, avant de se lancer à son compte. Pendant sa formation, il a travaillé notamment chez Michael Batell, Adrian Heinzelmann, Simon Burgun et Christopher Schuetz; Gabriel Seitner, Manuel Arango, Lisa Duchêne, Jakob Biehler, Christina Müller et Johanna Vogl ont également exercé une forte influence.
+  </p>
+  <p data-lang="en" style="display:none">
+    In 2015, Adrian Neher began his apprenticeship at the state vocational school for musical instrument making in Mittenwald. After successfully completing it, he pursued a Bachelor’s degree at the WHZ, which he completed with the master title and the best instrument of his year. He then successfully completed a Master’s in Acoustics and Technology of Musical Instrument Making, also at WHZ, before becoming self-employed. During his training, he worked with Michael Batell, Adrian Heinzelmann, Simon Burgun, and Christopher Schuetz; further strong influences came from Gabriel Seitner, Manuel Arango, Lisa Duchêne, Jakob Biehler, Christina Müller and Johanna Vogl.
+  </p>
+</section>
+
+<section id="model">
+
+
+
+
+  <h2 data-lang="de">Leistungen</h2>
+  <h2 data-lang="fr" style="display:none">Services</h2>
+  <h2 data-lang="en" style="display:none">Services</h2>
+
+  <p data-lang="de">
+    Neben dem Neubau von Instrumenten sind in der Werkstatt ebenfalls hochwertige Reparaturen möglich. Sich lösende Stege, Deckenrisse oder gebrochene Köpfe sind keinesfalls das Ende eines guten Instruments und können von Neher Gitarren professionell behoben werden. Auch Anpassungen an individuelle Bedürfnisse sowie selbstverständlich Einstellarbeiten gehören zum Repertoire, wobei sich hierbei nicht auf klassische Konzertgitarren beschränkt wird: Auch E-Gitarrist:innen, Bassist:innen und Steelstring-Liebhaber:innen sind herzlich willkommen.
+  </p>
+
+  <p data-lang="fr" style="display:none">
+    Outre la fabrication d’instruments, l’atelier propose également des réparations de haute qualité. Des chevalets décollés, des fissures de table ou des têtes cassées ne signifient en aucun cas la fin d’un bon instrument et peuvent être réparés professionnellement par Neher Guitars. Les ajustements aux besoins individuels ainsi que les réglages font également partie du répertoire, sans se limiter aux guitares classiques de concert : les guitaristes électriques, bassistes et amateurs de steelstring sont également les bienvenus.
+  </p>
+
+  <p data-lang="en" style="display:none">
+    In addition to building new instruments, the workshop also offers high-quality repairs. Lifting bridges, top cracks, or broken heads are by no means the end of a good instrument and can be professionally fixed by Neher Guitars. Adjustments to individual needs and, of course, setup work are also part of the repertoire, not limited to classical concert guitars: electric guitarists, bassists, and steel-string enthusiasts are warmly welcome.
+  </p>
+</section>
+
+<section id="contact">
+  <h2 data-lang="de">Kontakt</h2>
+  <h2 data-lang="fr" style="display:none">Contact</h2>
+  <h2 data-lang="en" style="display:none">Contact</h2>
+
+  <form id="contact-form" action="https://formspree.io/f/mrbdjqzv" method="POST">
+    <input type="text" name="name" placeholder="Name / Nom / Name" required>
+    <input type="email" name="email" placeholder="E-Mail / Courriel / Email" required>
+    <textarea name="message" placeholder="Nachricht / Message / Message" rows="5" required></textarea>
+
+    <!-- Deutsch -->
+    <button type="submit" data-lang="de">Absenden</button>
+
+    <!-- Französisch -->
+    <button type="submit" data-lang="fr" style="display:none">Envoyer</button>
+
+    <!-- Englisch -->
+    <button type="submit" data-lang="en" style="display:none">Send</button>
+</form>
+
+
+</section>
+
+<section id="impressum">
+  <h2 data-lang="de">Impressum</h2>
+  <h2 data-lang="fr" style="display:none">Mentions légales</h2>
+  <h2 data-lang="en" style="display:none">Imprint</h2>
+
+  <p data-lang="de">
+    Neher Gitarren<br>
+    40 Place Reboul<br>
+    84210 Pernes les Fontaines, Frankreich<br>
+  </p>
+  <p data-lang="fr" style="display:none">
+    Lutherie Neher<br>
+    40 Place Reboul<br>
+    84210 Pernes les Fontaines, France<br>
+  </p>
+  <p data-lang="en" style="display:none">
+    Neher Guitars<br>
+    40 Place Reboul<br>
+    84210 Pernes les Fontaines, France<br>
+
+  </p>
+</section>
+
+<footer>
+  &copy; 2025 Neher Gitarren
+</footer>
+
+
+<script>
+function setLang(lang) {
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
+  });
+}
+setLang('de');
+
+
+/* --- LIGHTBOX JAVASCRIPT --- */
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.querySelector(".lightbox-close");
+
+// Alle Galerie-Bilder anklickbar machen
+document.querySelectorAll(".model-gallery img").forEach(img => {
+  img.style.cursor = "pointer";
+  img.addEventListener("click", () => {
+    lightboxImg.src = img.src;
+    lightbox.style.display = "flex";
+  });
+});
+
+// X schließen
+closeBtn.addEventListener("click", () => {
+  lightbox.style.display = "none";
+});
+
+// Klick außerhalb des Bildes = schließen
+lightbox.addEventListener("click", e => {
+  if (e.target === lightbox) {
+    lightbox.style.display = "none";
+  }
+});
+</script>
+
+
+
+</body>
+</html>
